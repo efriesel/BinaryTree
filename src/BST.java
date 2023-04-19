@@ -3,8 +3,8 @@ import java.util.Stack;
 
 /**
  * An Integer Binary Search Tree
- * @author: Your Name Here
- * @version: Date
+ * @author: Ethan Friesel
+ * @version: 4/19/23
  */
 
 public class BST {
@@ -21,6 +21,7 @@ public class BST {
     /**
      * Sets up a binary search tree
      * with some default values
+     * 4/7/23 Ethan changed to make a more complex tree
      */
     public void setupTestData() {
         this.root = new BSTNode(8);
@@ -53,7 +54,7 @@ public class BST {
     }
 
     /**
-     * A function that searches for a value in the tree
+     * A function that searches for a value in the tree, calling recursive subSearch() method
      * @param val integer value to search for
      * @return true if val is in the tree, false otherwise
      */
@@ -61,6 +62,12 @@ public class BST {
         return subSearch(getRoot(), val);
     }
 
+    /**
+     * This method will search a node and returning true iff the value is found, using recursion
+     * @param n the node in question
+     * @param val the value that is being searched for
+     * @return false if the given node is null or if the val is equal to the nodes value (base cases)
+     */
     public boolean subSearch(BSTNode n, int val){
         if (n == null)
             return false;
@@ -81,6 +88,14 @@ public class BST {
         return order;
 
     }
+    /**
+     * this method will add each node to the list using the inorder format
+     * this method uses recursion
+     * @param current the inputted current node
+     * @param order the arraylist that objects will be added to
+     * order will be added to after the left node is aquired, in order to accurately traverse from left to right
+     * over the full tree
+     */
 
     public void runGetInorder(BSTNode current, ArrayList<BSTNode> order) {
         if (current.getLeft() != null)
@@ -92,6 +107,7 @@ public class BST {
 
     /**
      * @return ArrayList of BSTNodes in preorder
+     * uses recursive runGetPreorder() method to do so
      */
     public ArrayList<BSTNode> getPreorder() {
         ArrayList<BSTNode> order = new ArrayList<>();
@@ -99,6 +115,13 @@ public class BST {
         return order;
     }
 
+    /**
+     * this method will add each node to the list using the preorder format
+     * this method uses recursion
+     * @param current the inputted current node
+     * @param order the arraylist that objects will be added to
+     * order will be added to first because the preorder will go down and add parent nodes first
+     */
     public void runGetPreorder(BSTNode current, ArrayList<BSTNode> order) {
         order.add(current);
         if (current.getLeft() != null)
@@ -115,6 +138,13 @@ public class BST {
         runGetPostorder(getRoot(), order);
         return order;
     }
+    /**
+     * this method will add each node to the list using the postorder format
+     * this method uses recursion
+     * @param current the inputted current node
+     * @param order the arraylist that objects will be added to
+     * the order will be added to last because the child will be first (to the left then right)
+     */
     public void runGetPostorder (BSTNode current, ArrayList<BSTNode> order){
         if (current.getLeft() != null)
             runGetPostorder(current.getLeft(), order);
@@ -130,9 +160,7 @@ public class BST {
      * @param val The value ot insert
      */
     public void insert(int val) {
-        // TODO: Complete insert
         this.setRoot(runInsert(getRoot(), val));
-
     }
     public BSTNode runInsert(BSTNode current, int val){
         if (current == null)
